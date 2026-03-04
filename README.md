@@ -4,14 +4,18 @@
 [![Python](https://img.shields.io/pypi/pyversions/colorfyi)](https://pypi.org/project/colorfyi/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Pure Python color engine for developers. Convert between 7 color spaces, check WCAG contrast, generate harmonies and shades, simulate color blindness — all with zero dependencies.
+Pure Python color engine for developers. Convert between 7 color spaces (hex, RGB, HSL, HSV, CMYK, CIE Lab, OKLCH), check [WCAG contrast ratios](https://colorfyi.com/tools/contrast-checker/), generate [color harmonies](https://colorfyi.com/tools/palette-generator/) and [Tailwind-style shades](https://colorfyi.com/tools/shade-generator/), simulate [color blindness](https://colorfyi.com/tools/color-blindness-simulator/), and create [smooth gradients](https://colorfyi.com/tools/gradient-generator/) -- all with zero dependencies.
 
-> Try the interactive tools at [colorfyi.com](https://colorfyi.com/)
+> **Try the interactive tools at [colorfyi.com](https://colorfyi.com/)** -- [color converter](https://colorfyi.com/tools/converter/), [contrast checker](https://colorfyi.com/tools/contrast-checker/), [palette generator](https://colorfyi.com/tools/palette-generator/), [shade generator](https://colorfyi.com/tools/shade-generator/), [color blindness simulator](https://colorfyi.com/tools/color-blindness-simulator/), and [gradient generator](https://colorfyi.com/tools/gradient-generator/).
 
 ## Install
 
 ```bash
-pip install colorfyi
+pip install colorfyi                # Core engine (zero deps)
+pip install "colorfyi[cli]"         # + Command-line interface
+pip install "colorfyi[mcp]"         # + MCP server for AI assistants
+pip install "colorfyi[api]"         # + HTTP client for colorfyi.com API
+pip install "colorfyi[all]"         # Everything
 ```
 
 ## Quick Start
@@ -19,58 +23,116 @@ pip install colorfyi
 ```python
 from colorfyi import get_color_info, contrast_ratio, harmonies, generate_shades
 
-# Get comprehensive color info
+# Convert any hex color to 7 color spaces instantly
 info = get_color_info("FF6B35")
-print(info.rgb)   # RGB(r=255, g=107, b=53)
-print(info.hsl)   # HSL(h=16.0, s=100.0, l=60.4)
-print(info.cmyk)  # CMYK(c=0.0, m=58.0, y=79.2, k=0.0)
+print(info.rgb)    # RGB(r=255, g=107, b=53)
+print(info.hsl)    # HSL(h=16.0, s=100.0, l=60.4)
+print(info.cmyk)   # CMYK(c=0.0, m=58.0, y=79.2, k=0.0)
+print(info.oklch)  # OKLCH(l=0.685, c=0.179, h=42.9)
 
-# WCAG contrast check
+# WCAG 2.1 contrast ratio with AA/AAA compliance checks
 cr = contrast_ratio("FF6B35", "FFFFFF")
 print(cr.ratio)      # 3.38
 print(cr.aa_large)   # True
+print(cr.aaa_normal) # False
 
-# Color harmonies
+# Generate all 5 harmony types at once
 h = harmonies("FF6B35")
 print(h.complementary)       # ['35C0FF']
 print(h.analogous)           # ['FF3535', 'FFA135']
+print(h.triadic)             # ['6B35FF', '35FF6B']
 
-# Tailwind-style shades (50-950)
+# Tailwind-style shade palette (50-950)
 shades = generate_shades("3498DB")
 for shade in shades:
     print(f"{shade.level}: #{shade.hex}")
 ```
 
-## Advanced Usage
+## Color Blindness Simulation
 
 ```python
-from colorfyi import (
-    simulate_color_blindness, compare_colors,
-    mix_colors, gradient_steps, text_color_for_bg,
-)
+from colorfyi import simulate_color_blindness
 
-# Color blindness simulation (Vienot matrices)
+# Simulate how 8% of men experience your color choices
 cb = simulate_color_blindness("FF6B35")
-print(cb.protanopia)     # How protanopic users see this color
-print(cb.deuteranopia)   # How deuteranopic users see this color
+print(cb.protanopia)     # Red-blind simulation
+print(cb.deuteranopia)   # Green-blind simulation
+print(cb.tritanopia)     # Blue-blind simulation
+print(cb.achromatopsia)  # Total color blindness
+```
 
-# Perceptual color comparison (CIE76 Delta E)
+## Perceptual Color Comparison
+
+```python
+from colorfyi import compare_colors, mix_colors, gradient_steps
+
+# CIE76 Delta E perceptual distance
 cmp = compare_colors("FF6B35", "3498DB")
 print(cmp.delta_e)           # 42.3
 print(cmp.delta_e_category)  # "Very Different"
 
-# Mix two colors in Lab space
+# Mix colors in Lab space (perceptually uniform)
 mixed = mix_colors("FF0000", "0000FF", ratio=0.5)
-print(mixed)  # Perceptual midpoint
 
-# Generate smooth gradient
-colors = gradient_steps("FF6B35", "3498DB", steps=5)
-print(colors)  # ['FF6B35', ..., '3498DB']
-
-# Best text color for a background
-print(text_color_for_bg("1A1A2E"))  # "FFFFFF" (white text)
-print(text_color_for_bg("F0F0F0"))  # "000000" (black text)
+# Smooth gradient with perceptual interpolation
+colors = gradient_steps("FF6B35", "3498DB", steps=7)
 ```
+
+## Command-Line Interface
+
+```bash
+pip install "colorfyi[cli]"
+
+colorfyi info FF6B35                    # Full color info table
+colorfyi contrast 000000 FFFFFF         # WCAG contrast check
+colorfyi harmonies FF6B35               # Color harmonies
+colorfyi shades 3B82F6                  # Tailwind shade palette
+colorfyi blindness FF5733               # Color blindness simulation
+colorfyi mix FF0000 0000FF              # Mix two colors
+colorfyi compare FF6B35 3498DB          # Compare two colors
+colorfyi gradient FF0000 0000FF         # Smooth gradient
+```
+
+## MCP Server (Claude, Cursor, Windsurf)
+
+Add color tools to any AI assistant that supports [Model Context Protocol](https://modelcontextprotocol.io/).
+
+```bash
+pip install "colorfyi[mcp]"
+```
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+    "mcpServers": {
+        "colorfyi": {
+            "command": "python",
+            "args": ["-m", "colorfyi.mcp_server"]
+        }
+    }
+}
+```
+
+**Available tools**: `color_info`, `contrast_check`, `color_harmonies`, `color_shades`, `simulate_color_blindness`, `mix_colors`, `compare_colors`, `gradient`, `text_color_for_background`
+
+## REST API Client
+
+```python
+pip install "colorfyi[api]"
+```
+
+```python
+from colorfyi.api import ColorFYI
+
+with ColorFYI() as api:
+    info = api.color("FF6B35")         # GET /api/color/FF6B35/
+    cr = api.contrast("000", "FFF")    # GET /api/contrast/?fg=000&bg=FFF
+    shades = api.shades("3B82F6")      # GET /api/shades/3B82F6/
+    palette = api.palette("FF6B35")    # GET /api/palette/FF6B35/
+```
+
+Full [API documentation](https://colorfyi.com/developers/) with OpenAPI spec at [colorfyi.com/api/openapi.json](https://colorfyi.com/api/openapi.json).
 
 ## API Reference
 
@@ -87,7 +149,7 @@ print(text_color_for_bg("F0F0F0"))  # "000000" (black text)
 | `rgb_to_lab(r, g, b) -> Lab` | RGB to CIE Lab |
 | `lab_to_rgb(l, a, b) -> RGB` | CIE Lab to RGB |
 | `rgb_to_oklch(r, g, b) -> OKLCH` | RGB to OKLCH |
-| `get_color_info(hex) -> ColorInfo` | All color spaces at once |
+| `get_color_info(hex) -> ColorInfo` | All 7 color spaces at once |
 
 ### WCAG Contrast
 
@@ -95,7 +157,7 @@ print(text_color_for_bg("F0F0F0"))  # "000000" (black text)
 |----------|-------------|
 | `contrast_ratio(hex1, hex2) -> ContrastResult` | WCAG 2.1 contrast ratio + AA/AAA checks |
 | `relative_luminance(r, g, b) -> float` | Relative luminance (0-1) |
-| `text_color_for_bg(hex) -> str` | Best text color for a background |
+| `text_color_for_bg(hex) -> str` | Best text color (black or white) for a background |
 
 ### Harmonies & Palettes
 
@@ -130,30 +192,41 @@ print(text_color_for_bg("F0F0F0"))  # "000000" (black text)
 
 ## Features
 
-- **7 color spaces**: RGB, HSL, HSV, CMYK, Lab, OKLCH, Hex
-- **WCAG 2.1 contrast**: AA/AAA checks for normal and large text
+- **7 color spaces**: RGB, HSL, HSV, CMYK, CIE Lab, OKLCH, Hex
+- **WCAG 2.1 contrast**: AA/AAA compliance checks for normal and large text
 - **Color harmonies**: complementary, analogous, triadic, split-complementary, tetradic
 - **Shade generation**: Tailwind-style 50-950 scale
 - **Color blindness simulation**: protanopia, deuteranopia, tritanopia, achromatopsia (Vienot matrices)
 - **Perceptual comparison**: CIE76 Delta E, Lab-space gradients and mixing
-- **Zero dependencies**: Pure Python, only `math` from stdlib
+- **CLI**: Rich terminal output with color tables
+- **MCP server**: 9 tools for AI assistants (Claude, Cursor, Windsurf)
+- **REST API client**: httpx-based client for [colorfyi.com API](https://colorfyi.com/developers/)
+- **Zero dependencies**: Core engine uses only `math` from stdlib
 - **Type-safe**: Full type annotations, `py.typed` marker (PEP 561)
+- **Fast**: All computations under 1ms
 
-## Related Packages
+## FYIPedia Developer Tools
+
+Part of the [FYIPedia](https://colorfyi.com/) open-source developer tools ecosystem:
 
 | Package | Description |
 |---------|-------------|
-| [emojifyi](https://github.com/fyipedia/emojifyi) | Emoji encoding & metadata for 3,781 emojis |
-| [fontfyi](https://github.com/fyipedia/fontfyi) | Google Fonts metadata, CSS helpers, font pairings |
-| [symbolfyi](https://github.com/fyipedia/symbolfyi) | Symbol & character encoding (11 formats) |
-| [unicodefyi](https://github.com/fyipedia/unicodefyi) | Unicode character toolkit (17 encodings) |
+| **colorfyi** | [Hex to RGB converter](https://colorfyi.com/tools/converter/), [WCAG contrast checker](https://colorfyi.com/tools/contrast-checker/), [color harmonies](https://colorfyi.com/tools/palette-generator/) |
+| [emojifyi](https://emojifyi.com/) | [Emoji encoding](https://emojifyi.com/developers/) & metadata for 3,781 Unicode emojis |
+| [symbolfyi](https://symbolfyi.com/) | [Symbol encoder](https://symbolfyi.com/developers/) -- 11 encoding formats for any character |
+| [unicodefyi](https://unicodefyi.com/) | [Unicode character lookup](https://unicodefyi.com/developers/) -- 17 encodings + character search |
+| [fontfyi](https://fontfyi.com/) | [Google Fonts explorer](https://fontfyi.com/developers/) -- metadata, CSS helpers, font pairings |
 
 ## Links
 
-- [Interactive Color Converter](https://colorfyi.com/) — Convert any color online
-- [Contrast Checker](https://colorfyi.com/tools/contrast-checker/) — WCAG accessibility checker
-- [API Documentation](https://colorfyi.com/developers/) — REST API with free access
-- [Source Code](https://github.com/fyipedia/colorfyi)
+- [Interactive Color Converter](https://colorfyi.com/tools/converter/) -- Convert hex, RGB, HSL, CMYK, OKLCH
+- [WCAG Contrast Checker](https://colorfyi.com/tools/contrast-checker/) -- Test color accessibility
+- [Palette Generator](https://colorfyi.com/tools/palette-generator/) -- Create color harmonies
+- [Shade Generator](https://colorfyi.com/tools/shade-generator/) -- Tailwind-style shade palettes
+- [Color Blindness Simulator](https://colorfyi.com/tools/color-blindness-simulator/) -- Test for color vision deficiency
+- [Gradient Generator](https://colorfyi.com/tools/gradient-generator/) -- Create smooth CSS gradients
+- [REST API Documentation](https://colorfyi.com/developers/) -- Free API with OpenAPI spec
+- [Source Code](https://github.com/fyipedia/colorfyi) -- MIT licensed
 
 ## License
 

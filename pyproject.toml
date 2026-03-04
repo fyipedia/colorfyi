@@ -1,12 +1,27 @@
 [project]
 name = "colorfyi"
-version = "0.1.0"
-description = "Pure Python color engine — conversions, harmonies, WCAG contrast, shades, and color blindness simulation."
+version = "0.2.0"
+description = "Pure Python color engine — hex to RGB/HSL/CMYK/OKLCH conversion, WCAG contrast checker, color harmonies, Tailwind shades, and color blindness simulation. Zero dependencies."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
 authors = [{ name = "FYIPedia" }]
-keywords = ["color", "hex", "rgb", "hsl", "cmyk", "oklch", "wcag", "contrast", "tailwind", "accessibility"]
+keywords = [
+    "color",
+    "hex",
+    "rgb",
+    "hsl",
+    "cmyk",
+    "oklch",
+    "wcag",
+    "contrast",
+    "tailwind",
+    "accessibility",
+    "color-blindness",
+    "color-harmony",
+    "color-palette",
+    "color-converter",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -20,14 +35,31 @@ classifiers = [
     "Topic :: Multimedia :: Graphics",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
+    "Environment :: Console",
 ]
 dependencies = []
 
+[project.optional-dependencies]
+api = ["httpx>=0.27"]
+cli = ["typer>=0.15", "rich>=13.0"]
+mcp = ["mcp>=1.0"]
+all = ["colorfyi[api,cli,mcp]"]
+
+[project.scripts]
+colorfyi = "colorfyi.cli:app"
+
+[project.entry-points."mcp.servers"]
+colorfyi = "colorfyi.mcp_server:mcp"
+
 [project.urls]
 Homepage = "https://colorfyi.com"
+"Color Converter" = "https://colorfyi.com/colors/"
+"Contrast Checker" = "https://colorfyi.com/tools/contrast-checker/"
+"Color Harmonies" = "https://colorfyi.com/tools/color-harmonies/"
 Documentation = "https://colorfyi.com/developers/"
 Repository = "https://github.com/fyipedia/colorfyi"
 Issues = "https://github.com/fyipedia/colorfyi/issues"
+Changelog = "https://github.com/fyipedia/colorfyi/releases"
 
 [build-system]
 requires = ["hatchling"]
@@ -54,7 +86,11 @@ strict = true
 
 [dependency-groups]
 dev = [
+    "httpx>=0.27",
+    "mcp>=1.0",
     "mypy>=1.19.1",
     "pytest>=9.0.2",
+    "rich>=13.0",
     "ruff>=0.15.4",
+    "typer>=0.15",
 ]
