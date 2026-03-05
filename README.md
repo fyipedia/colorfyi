@@ -8,6 +8,10 @@ Pure Python color engine for developers. Convert between 7 color spaces (hex, RG
 
 > **Try the interactive tools at [colorfyi.com](https://colorfyi.com/)** -- [color converter](https://colorfyi.com/tools/converter/), [contrast checker](https://colorfyi.com/tools/contrast-checker/), [palette generator](https://colorfyi.com/tools/palette-generator/), [shade generator](https://colorfyi.com/tools/shade-generator/), [color blindness simulator](https://colorfyi.com/tools/color-blindness-simulator/), and [gradient generator](https://colorfyi.com/tools/gradient-generator/).
 
+<p align="center">
+  <img src="demo.gif" alt="colorfyi CLI demo" width="800">
+</p>
+
 ## Install
 
 ```bash
