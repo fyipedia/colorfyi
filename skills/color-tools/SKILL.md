@@ -50,6 +50,10 @@ Add to your `claude_desktop_config.json`:
 - Testing colors for color vision deficiency
 - Creating smooth gradients or mixing colors
 
+## Demo
+
+![ColorFYI CLI Demo](https://raw.githubusercontent.com/fyipedia/colorfyi/main/demo.gif)
+
 ## Links
 
 - [Interactive Color Converter](https://colorfyi.com/tools/converter/)
