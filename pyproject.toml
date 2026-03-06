@@ -1,6 +1,6 @@
 [project]
 name = "colorfyi"
-version = "0.2.1"
+version = "0.2.2"
 description = "Pure Python color engine — hex to RGB/HSL/CMYK/OKLCH conversion, WCAG contrast checker, color harmonies, Tailwind shades, and color blindness simulation. Zero dependencies."
 readme = "README.md"
 license = "MIT"
