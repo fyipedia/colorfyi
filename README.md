@@ -1,6 +1,6 @@
 # colorfyi
 
-[![PyPI](https://img.shields.io/pypi/v/colorfyi)](https://pypi.org/project/colorfyi/)
+[![PyPI version](https://agentgif.com/badge/pypi/colorfyi/version.svg)](https://pypi.org/project/colorfyi/)
 [![Python](https://img.shields.io/pypi/pyversions/colorfyi)](https://pypi.org/project/colorfyi/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](https://pypi.org/project/colorfyi/)
