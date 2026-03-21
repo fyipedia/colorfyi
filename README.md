@@ -106,7 +106,7 @@ print(info.hsl)    # HSL(h=217.2, s=91.2, l=59.8)
 print(info.oklch)  # OKLCH(l=0.623, c=0.184, h=259.1)
 ```
 
-Learn more: [Color Converter Tool](https://colorfyi.com/tools/converter/) · [What is OKLCH?](https://colorfyi.com/blog/oklch-color-space/) · [Color Space Guide](https://colorfyi.com/glossary/terms/color-space/)
+Learn more: [Color Converter Tool](https://colorfyi.com/tools/converter/) · [Color Space Guide](https://colorfyi.com/glossary/terms/color-space/)
 
 ### WCAG Contrast Checking
 
@@ -153,9 +153,7 @@ print(h.split_complementary)  # ['3565FF', '35FFA1']
 print(h.tetradic)             # ['C035FF', '35FF6B', '35C0FF']
 ```
 
-Learn more: [Palette Generator](https://colorfyi.com/tools/palette-generator/) · [Color Harmony Guide](https://colorfyi.com/glossary/terms/color-harmony/)
-
-### Tailwind-Style Shades
+Learn more: [Palette Generator](https://colorfyi.com/tools/palette-generator/) · ### Tailwind-Style Shades
 
 Generate a full 50–950 shade scale from any base color, matching Tailwind CSS conventions. Essential for building design systems and consistent UI themes.
 
@@ -168,9 +166,7 @@ for shade in shades:
     print(f"{shade.level}: #{shade.hex}")
 ```
 
-Learn more: [Shade Generator](https://colorfyi.com/tools/shade-generator/) · [Tailwind CSS Colors](https://colorfyi.com/collections/tailwind-css/)
-
-### Color Blindness Simulation
+Learn more: [Shade Generator](https://colorfyi.com/tools/shade-generator/) · ### Color Blindness Simulation
 
 Approximately **8% of men and 0.5% of women** have some form of color vision deficiency (CVD). Simulate how your colors appear to users with different types of color blindness using Viénot transformation matrices.
 
@@ -330,8 +326,7 @@ Full [API documentation](https://colorfyi.com/developers/) with OpenAPI spec at 
 ## Learn More About Color
 
 - **Tools**: [Color Converter](https://colorfyi.com/tools/converter/) · [Contrast Checker](https://colorfyi.com/tools/contrast-checker/) · [Palette Generator](https://colorfyi.com/tools/palette-generator/) · [Shade Generator](https://colorfyi.com/tools/shade-generator/) · [Blindness Simulator](https://colorfyi.com/tools/color-blindness-simulator/) · [Gradient Generator](https://colorfyi.com/tools/gradient-generator/)
-- **Color Systems**: [CSS Named Colors](https://colorfyi.com/color/named/?source=css) · [Pantone Colors](https://colorfyi.com/collections/pantone/) · [Tailwind Colors](https://colorfyi.com/collections/tailwind-css/) · [RAL Colors](https://colorfyi.com/collections/ral-classic/)
-- **Brand Colors**: [544 Brand Palettes](https://colorfyi.com/brands/) · [Google](https://colorfyi.com/brands/google/) · [Apple](https://colorfyi.com/brands/apple/) · [Meta](https://colorfyi.com/brands/meta/)
+- **Color Systems**: [CSS Named Colors](https://colorfyi.com/color/named/?source=css) · - **Brand Colors**: [544 Brand Palettes](https://colorfyi.com/brands/) · [Google](https://colorfyi.com/brands/google/) · [Apple](https://colorfyi.com/brands/apple/) · [Meta](https://colorfyi.com/brands/meta/)
 - **Guides**: [Color Theory Glossary](https://colorfyi.com/glossary/) · [Blog](https://colorfyi.com/blog/)
 - **API**: [REST API Docs](https://colorfyi.com/developers/) · [OpenAPI Spec](https://colorfyi.com/api/openapi.json)
 
