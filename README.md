@@ -376,6 +376,15 @@ This package is part of the [FYIPedia](https://fyipedia.com) developer tools eco
 
 <!-- WIDGET-OSS-MONITOR: cross-links END -->
 
+## Recently Updated (v0.2.4)
+
+Latest content state on [https://colorfyi.com](https://colorfyi.com):
+- [Homepage](https://colorfyi.com)
+- [Developer documentation](https://colorfyi.com/developers/)
+- [Sitemap (full content index)](https://colorfyi.com/sitemap.xml)
+
+Version bumped 2026-05-27 as part of the FYIPedia [SEO recovery refresh](https://github.com/dobestan).
+
 ## License
 
 MIT
