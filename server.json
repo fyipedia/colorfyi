@@ -1,0 +1,41 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fyipedia/colorfyi",
+  "description": "Pure Python color engine — hex to RGB/HSL/CMYK/OKLCH conversion, WCAG contrast checker, color",
+  "version": "0.2.3",
+  "repository": {
+    "url": "https://github.com/fyipedia/colorfyi",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "colorfyi",
+      "version": "0.2.3",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeArguments": [
+        {
+          "type": "named",
+          "name": "--from",
+          "value": "colorfyi[mcp]"
+        },
+        {
+          "type": "positional",
+          "value": "python"
+        },
+        {
+          "type": "positional",
+          "value": "-m"
+        },
+        {
+          "type": "positional",
+          "value": "colorfyi.mcp_server"
+        }
+      ]
+    }
+  ]
+}

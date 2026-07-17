@@ -1,0 +1,10 @@
+# Smithery configuration for colorfyi
+# https://smithery.ai/docs/build/project-config
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required: []
+    properties: {}
+  commandFunction: |-
+    config => ({ command: 'uvx', args: ['--from', 'colorfyi[mcp]', 'python', '-m', 'colorfyi.mcp_server'] })
